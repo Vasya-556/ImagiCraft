@@ -9,3 +9,7 @@ class History(models.Model):
 
     def __str__(self):
         return f"Image for {self.user.username} - {self.prompt}"
+    
+    class Meta:
+        verbose_name = "History Record"  
+        verbose_name_plural = "History Records"
