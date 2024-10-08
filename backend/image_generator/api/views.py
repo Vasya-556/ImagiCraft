@@ -36,10 +36,10 @@ def generate_images(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         prompt = data.get("prompt", "")
-        is_logged_in = data.get("isLogged", False)  # Get isLogged from request body
+        is_logged_in = data.get("isLogged", False)
+        user_id = data.get("user_id", None)  
 
-        # Determine number of images to generate based on isLogged
-        image_num = 3 if is_logged_in else 1  
+        image_num = 3 if is_logged_in else 1
         image_urls = []
 
         for i in range(image_num):
@@ -57,19 +57,31 @@ def generate_images(request):
                     image_filename = f"generated_image_{i + 1}_{int(time.time())}.png"
                     image_path = os.path.join(output_dir, image_filename)
 
-                    with open(image_path, "wb") as f:
-                        f.write(image_data)
+                    try:
+                        with open(image_path, "wb") as f:
+                            f.write(image_data)
+                    except Exception as e:
+                        return JsonResponse({
+                            "status": "error",
+                            "message": f"Error saving image: {str(e)}"
+                        }, status=500)
 
-                    image_url = request.build_absolute_uri(os.path.join(settings.MEDIA_URL, "generated_images", image_filename)).replace('\\', '/')
+                    image_url = request.build_absolute_uri(f"{settings.MEDIA_URL}generated_images/{image_filename}")
                     image_urls.append(image_url)
 
-                    # Optionally, save to history if isLogged is true
-                    if is_logged_in:
-                        # History.objects.create(user=request.user, image=image_filename, prompt=prompt_with_variation)
-                        pass  # Skip storing history since we aren't checking user auth
+                    if is_logged_in and user_id:
+                        try:
+                            user = User.objects.get(id=user_id)
+                            History.objects.create(user=user, image=image_filename, prompt=prompt_with_variation)
+                        except User.DoesNotExist:
+                            return JsonResponse({
+                                "status": "error",
+                                "message": "User not found."
+                            }, status=404)
 
-                    break
+                    break  
                 else:
+                    print(f"Error from image generation API: {response.status_code} - {response.text}")
                     if "currently loading" in response.text:
                         time.sleep(retry_delay)
                     else:
@@ -79,29 +91,50 @@ def generate_images(request):
             "status": "success",
             "images": image_urls
         }, status=200)
-    else:
-        return JsonResponse({
-            "status": "error",
-            "message": "Only POST requests are allowed"
-        }, status=400)
-    
-@login_required
-def get_user_history(request):
-    history = History.objects.filter(user=request.user).order_by('-created_at')
-    history_data = [
-        {
-            "id": item.id,
-            "image_url": request.build_absolute_uri(item.image.url),
-            "prompt": item.prompt,
-            "created_at": item.created_at,
-        }
-        for item in history
-    ]
 
     return JsonResponse({
-        "status": "success",
-        "history": history_data
-    }, status=200)
+        "status": "error",
+        "message": "Only POST requests are allowed"
+    }, status=400)
+    
+@csrf_exempt
+def get_user_history(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        user_id = data.get("user_id")  
+
+        try:
+            history = History.objects.filter(user__id=user_id).order_by('-created_at')
+
+            
+            history_dict = {}
+            for item in history:
+                prompt = item.prompt
+                image_url = request.build_absolute_uri(f"{settings.MEDIA_URL}generated_images/{item.image}")  
+                print("Generated image URL:", image_url)  
+
+                if prompt not in history_dict:
+                    history_dict[prompt] = []
+                history_dict[prompt].append({
+                    "id": item.id,
+                    "image_url": image_url,  
+                    "created_at": item.created_at,
+                })
+
+            return JsonResponse({
+                "status": "success",
+                "history": history_dict  
+            }, status=200)
+        except User.DoesNotExist:
+            return JsonResponse({
+                "status": "error",
+                "message": "User not found."
+            }, status=404)
+
+    return JsonResponse({
+        "status": "error",
+        "message": "Only POST requests are allowed"
+    }, status=400)
 
 @csrf_exempt
 def signup(request):

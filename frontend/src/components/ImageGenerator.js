@@ -6,11 +6,15 @@ function ImageGenerator() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [userId, setUserId] = useState(null); // State to hold user ID
   
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     if (token) {
       setIsLoggedIn(true); 
+      // Decode token to get user ID (assuming the token contains user ID)
+      const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decode JWT to get payload
+      setUserId(decodedToken.user_id); // Extract user ID from token payload
     } else {
       setIsLoggedIn(false); 
     }
@@ -31,6 +35,7 @@ function ImageGenerator() {
         body: JSON.stringify({
           prompt: prompt,
           isLogged: isLoggedIn,  
+          user_id: userId, // Send user ID to the backend
         }),
       });
 
@@ -55,7 +60,7 @@ function ImageGenerator() {
   return (
     <div>
       <h1>Image Generator</h1>
-      {isLoggedIn ? <p>Logged in</p> : <p>Not logged in</p>} {/* Check if logged in */}
+      {isLoggedIn ? <p>Logged in</p> : <p>Not logged in</p>}
 
       <div>
         <input
