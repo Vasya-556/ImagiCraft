@@ -61,23 +61,44 @@ function ImageGenerator() {
     }
   };
 
+  const handleDownload = async (imageUrl) => {
+    const response = await fetch(imageUrl, {
+      method: 'GET',
+    });
+
+    if (response.ok) {
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = imageUrl.split('/').pop();
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } else {
+      alert('Failed to download image');
+    }
+  };
+
   return (
     <div>
       <h1>Image Generator</h1>
-        <div>
-          {chatHistory.map((entry, index) => (
-            <div key={index}>
-              <p>{entry.prompt}</p>
-              <div>
-                {entry.images.map((imageUrl, imgIndex) => (
-                  <div key={imgIndex}>
-                    <img src={imageUrl} alt={`Generated ${imgIndex + 1}`} width="300" />
-                  </div>
-                ))}
-              </div>
+      <div>
+        {chatHistory.map((entry, index) => (
+          <div key={index}>
+            <p>{entry.prompt}</p>
+            <div>
+              {entry.images.map((imageUrl, imgIndex) => (
+                <div key={imgIndex}>
+                  <img src={imageUrl} alt={`Generated ${imgIndex + 1}`} width="300" />
+                  <button onClick={() => handleDownload(imageUrl)}>Download</button>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
+      </div>
       {isLoggedIn ? <p>Logged in</p> : <p>Not logged in</p>}
       <div>
         <input

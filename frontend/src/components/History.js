@@ -4,13 +4,13 @@ function History() {
   const [history, setHistory] = useState({});
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
-  const [userId, setUserId] = useState(null); // State to hold user ID
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     if (token) {
-      const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decode JWT to get payload
-      setUserId(decodedToken.user_id); // Extract user ID from token payload
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      setUserId(decodedToken.user_id);
     }
 
     const fetchHistory = async () => {
@@ -18,13 +18,13 @@ function History() {
       setError('');
       try {
         const response = await fetch('http://127.0.0.1:8000/api/user_history/', {
-          method: 'POST', // Changed to POST
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, // Add authorization if needed
+            'Authorization': `Bearer ${token}`,
           },
           body: JSON.stringify({
-            user_id: userId, // Send user ID to backend
+            user_id: userId,
           }),
         });
 
@@ -48,7 +48,27 @@ function History() {
     if (userId) {
       fetchHistory();
     }
-  }, [userId]); // Fetch history whenever userId changes
+  }, [userId]);
+
+  const handleDownload = async (imageUrl) => {
+    const response = await fetch(imageUrl, {
+      method: 'GET',
+    });
+
+    if (response.ok) {
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = imageUrl.split('/').pop();
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } else {
+      alert('Failed to download image');
+    }
+  };
 
   if (loading) {
     return <p>Loading...</p>;
@@ -72,6 +92,7 @@ function History() {
                 {images.map((item, index) => (
                   <div key={item.id} style={{ margin: '10px' }}>
                     <img src={item.image_url} alt={`Generated image for prompt: ${prompt}`} width="300" />
+                    <button onClick={() => handleDownload(item.image_url)}>Download</button>
                   </div>
                 ))}
               </div>
