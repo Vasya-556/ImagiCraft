@@ -11,4 +11,6 @@ urlpatterns = [
     path('signout/', signout, name='signout'),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('get_user_data/', get_user_data, name='get_user_data'),
+    path('update_user_data/', update_user_data, name='update_user_data'),
 ]

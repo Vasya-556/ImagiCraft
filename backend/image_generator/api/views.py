@@ -1,8 +1,7 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 import os
 import time
@@ -167,3 +166,46 @@ def signin(request):
 @csrf_exempt
 def signout(request):
     return JsonResponse({'status': 'success', 'message': 'Logout successful.'}, status=200)
+
+def hello_world(request):
+    return HttpResponse('<h1>Hello World</h1>')
+
+@csrf_exempt
+def get_user_data(request):
+    try:
+        data = json.loads(request.body.decode('utf-8'))
+        user_id = data.get("user_id")
+        user = User.objects.get(id=user_id)
+        user_data = {
+            'username': user.username,
+            'email': user.email,
+            'first_name': user.first_name,
+            'last_name': user.last_name
+        }
+        return JsonResponse({'status': 'success', 'data': user_data})
+    except User.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'User not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+    
+@csrf_exempt
+def update_user_data(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            user_id = data.get("user_id")
+            user = User.objects.get(id=user_id)
+
+            user.username = data.get("username", user.username)
+            user.email = data.get("email", user.email)
+            user.first_name = data.get("first_name", user.first_name)
+            user.last_name = data.get("last_name", user.last_name)
+            user.save()
+
+            return JsonResponse({'status': 'success', 'message': 'User data updated successfully'})
+        except User.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'User not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)

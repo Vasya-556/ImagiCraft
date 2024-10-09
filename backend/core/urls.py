@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from image_generator.api.views import hello_world
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('image_generator.api.urls')),
+    path('', hello_world),
 ]
 
 if settings.DEBUG:  

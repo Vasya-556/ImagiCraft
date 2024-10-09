@@ -91,7 +91,7 @@ function History() {
               <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                 {images.map((item, index) => (
                   <div key={item.id} style={{ margin: '10px' }}>
-                    <img src={item.image_url} alt={`Generated image for prompt: ${prompt}`} width="300" />
+                    <img src={item.image_url} alt="" width="300" />
                     <button onClick={() => handleDownload(item.image_url)}>Download</button>
                   </div>
                 ))}
