@@ -14,6 +14,7 @@ from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from django.core.mail import send_mail
 
 from .Api_Token import token
 
@@ -209,3 +210,50 @@ def update_user_data(request):
             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
     else:
         return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+    
+verification_codes = {}
+
+@csrf_exempt
+def request_password_reset(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        email = data.get('email')
+
+        try:
+            user = User.objects.get(email=email)
+            verification_code = random.randint(100000, 999999)
+            verification_codes[email] = verification_code  
+
+            send_mail(
+                'Your Password Reset Code',
+                f'Your verification code is {verification_code}',
+                settings.DEFAULT_FROM_EMAIL,
+                [email],
+                fail_silently=False,
+            )
+
+            return JsonResponse({'status': 'success', 'message': 'Verification code sent to email.'})
+        except User.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'User not found.'}, status=404)
+
+@csrf_exempt
+def change_password(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        email = data.get('email')
+        code = data.get('code')
+        new_password = data.get('new_password')
+
+        stored_code = verification_codes.get(email)
+
+        if stored_code is not None and str(stored_code) == str(code):
+            try:
+                user = User.objects.get(email=email)
+                user.set_password(new_password)
+                user.save()
+                del verification_codes[email]  
+                return JsonResponse({'status': 'success', 'message': 'Password changed successfully.'})
+            except User.DoesNotExist:
+                return JsonResponse({'status': 'error', 'message': 'User not found.'}, status=404)
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Invalid verification code.'}, status=400)

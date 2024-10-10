@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PasswordReset from './PasswordReset';
 
 function Profile() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -110,6 +111,8 @@ function Profile() {
           </div>
           <button onClick={handleUpdate}>Update Profile</button>
           {successMessage && <p>{successMessage}</p>}
+
+          <PasswordReset email={userData.email} />
         </div>
       ) : (
         <p>Not logged in</p>
