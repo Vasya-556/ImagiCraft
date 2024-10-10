@@ -2,7 +2,10 @@ import React from 'react'
 
 function SideBar() {
   return (
-    <div>SideBar</div>
+    <div>
+      <a href='/history'>History</a>
+      <a href='/profile'>Profile</a>
+    </div>
   )
 }
 

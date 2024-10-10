@@ -1,6 +1,6 @@
+import Header from "./components/Header";
 import History from "./components/History";
 import ImageGenerator from "./components/ImageGenerator";
-import LogoutButton from "./components/LogoutButton";
 import Profile from "./components/Profile";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
@@ -17,7 +17,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/" element={<ImageGenerator />} />
         </Routes>
-        <LogoutButton />  
+        <Header/>
       </div>
     </Router>
   );
