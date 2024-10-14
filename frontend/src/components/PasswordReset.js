@@ -45,7 +45,7 @@ function PasswordReset({ email }) {
   };
 
   return (
-    <div>
+    <div className='PasswordReset'>
       <h2>Password Reset</h2>
       {step === 1 ? (
         <div>

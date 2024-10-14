@@ -24,29 +24,34 @@ function SignUp() {
     };
   
     return (
-      <div>
-        <h1>Signup</h1>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button onClick={handleSignup}>Signup</button>
-        <p>{message}</p>
+      <div className='auth-page'>
+        <div className="auth-container">
+          <h1>Sign up</h1>
+          <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="auth-input"
+          />
+          <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="auth-input"
+          />
+          <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="auth-input"
+          />
+          <button onClick={handleSignup} className="auth-button">Signup</button>
+          {message && <p className="auth-message">{message}</p>}
       </div>
+    </div>
     );
 }
 

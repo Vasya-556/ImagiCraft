@@ -27,6 +27,7 @@ function SignIn() {
             localStorage.setItem('refresh_token', data.refresh); 
             setMessage('Signin successful!');
             navigate('/'); 
+            window.location.reload();
         } catch (error) {
             console.error('Signin error:', error);
             setMessage('Failed to fetch. Please try again.'); 
@@ -34,22 +35,26 @@ function SignIn() {
     };
 
     return (
-        <div>
-            <h1>Signin</h1>
-            <input
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            />
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <button onClick={handleSignin}>Signin</button>
-            <p>{message}</p>
+        <div className="auth-page">
+            <div className="auth-container">
+                <h1>Sign in</h1>
+                <input
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    className="auth-input"
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="auth-input"
+                />
+                <button onClick={handleSignin} className="auth-button">Signin</button>
+                {message && <p className="auth-message">{message}</p>}
+            </div>
         </div>
     );
 }

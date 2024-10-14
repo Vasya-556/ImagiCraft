@@ -82,36 +82,37 @@ function ImageGenerator() {
   };
 
   return (
-    <div>
-      <h1>Image Generator</h1>
-      <div>
+    <div className="ImageGenerator">
+      <div className="chat-history">
         {chatHistory.map((entry, index) => (
-          <div key={index}>
-            <p>{entry.prompt}</p>
-            <div>
+          <div key={index} className="chat-entry">
+            <p className="chat-prompt">{entry.prompt}</p>
+            <div className="chat-images">
               {entry.images.map((imageUrl, imgIndex) => (
-                <div key={imgIndex}>
-                  <img src={imageUrl} alt={`Generated ${imgIndex + 1}`} width="300" />
-                  <button onClick={() => handleDownload(imageUrl)}>Download</button>
+                <div key={imgIndex} className="chat-image-item">
+                  <img src={imageUrl} alt={`Generated ${imgIndex + 1}`} className="chat-image" />
+                  <button onClick={() => handleDownload(imageUrl)} className="download-button">
+                    Download
+                  </button>
                 </div>
               ))}
             </div>
           </div>
         ))}
       </div>
-      {isLoggedIn ? <p>Logged in</p> : <p>Not logged in</p>}
-      <div>
+      <div className="chat-input">
         <input
           type="text"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder="Enter image prompt"
+          className="input-field"
         />
-        <button onClick={handleGenerateImages} disabled={loading || !prompt}>
+        <button onClick={handleGenerateImages} disabled={loading || !prompt} className="generate-button">
           {loading ? 'Generating...' : 'Generate Images'}
         </button>
       </div>
-      {error && <p>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 }

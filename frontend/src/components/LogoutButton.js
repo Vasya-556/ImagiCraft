@@ -22,7 +22,10 @@ function LogoutButton() {
     }
   };
 
-  return <button onClick={handleLogout}>Logout</button>;
+  return <button onClick={handleLogout}
+      className='AuthButton'>
+      Logout
+    </button>;
 }
 
 export default LogoutButton;

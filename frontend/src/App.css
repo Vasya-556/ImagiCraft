@@ -1,0 +1,552 @@
+:root {
+    --primary-color: #8B4513;  
+    --secondary-color: #CD853F;  
+    --font-color: #FFFFFF;  
+    --bg-color: #FFF8DC;  
+    --accent-color: #D2691E;  
+    --button-color: #A0522D;  
+    --button-hover-color: #76390e;  
+    --toggle-color: #CD853F;  
+    --toggle-active-color: #D2691E;  
+}
+
+[data-theme="dark"] {
+    --primary-color: #ff8a00;  
+    --secondary-color: #8B4513;  
+    --font-color: #F5F5DC;  
+    --bg-color: #3B3B3B;  
+    --accent-color: #fda901;  
+    --button-color: #B22222;  
+    --button-hover-color: #CD853F;
+    --toggle-color: #8B4513;  
+    --toggle-active-color: #D2691E;
+}
+
+
+body {
+    background-color: var(--bg-color);
+    padding-top: 100px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.Header {
+    background-color: var(--primary-color);
+    height: 70px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    z-index: 10;
+}
+
+.Header .left,
+.Header .middle,
+.Header .right {
+    flex: 1; 
+    display: flex; 
+}
+
+.Header .middle {
+    justify-content: center;
+    align-items: center; 
+    flex-direction: row;
+}
+
+.Header .right {
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.Header .middle h1 {
+    margin-right: 10px; 
+    display: inline-block; 
+}
+
+.Header .middle img {
+    display: inline-block; 
+    vertical-align: middle;
+    position: relative;
+    top: -9px;
+    width: 50px;
+    height: 50px;
+}
+
+@media (max-width: 600px) {
+    .Header .middle h1 {
+        font-size: 1.2em;  
+        margin-right: 5px; 
+    }
+
+    .Header .middle img {
+        width: 30px;  
+        height: 30px; 
+    }
+}
+
+.Header a {
+    color: var(--font-color);
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 35px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc; 
+    transition: 0.4s;
+    border-radius: 15px;
+}
+
+.slider:before {
+    position: absolute;
+    content: '';
+    height: 25px;
+    width: 25px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--font-color);
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--toggle-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(25px);
+}
+
+@media (max-width: 600px) {
+    .switch {
+        width: 75px; 
+        height: 33px; 
+    }
+}
+
+.Sidebar {
+    background-color: var(--secondary-color); 
+    width: 250px;
+    height: 100%;
+    padding: 20px;
+    position: fixed;
+    left: -250px;
+    top: 0;
+    transition: left 0.5s ease; 
+    z-index: 5;
+}
+
+.Sidebar.open {
+    left: 0;
+}
+
+.Sidebar.closed {
+    left: -250px; 
+}
+
+.Sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.Sidebar li {
+    margin-bottom: 15px; 
+}
+
+.Sidebar a {
+    color: var(--font-color); 
+    text-decoration: none; 
+    font-size: 16px;
+}
+
+.Sidebar a:hover {
+    color: var(--font-color); 
+    font-size: 20px;
+}
+
+.SidebarToggle {
+    position: fixed;
+    top: 15px;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 15; 
+    transition: left 0.5s ease; 
+}
+
+.SidebarToggle.open {
+    left: 250px; 
+}
+
+.SidebarToggle.closed {
+    left: 15px;
+}
+
+.menu-icon {
+    display: inline-block;
+    transition: transform 0.5s ease;
+}
+
+.SidebarToggle.open .menu-icon {
+    transform: rotate(90deg);
+}
+
+.AuthButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: var(--font-color);
+    background-color: var(--button-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.AuthButton:hover {
+    background-color: var(--button-hover-color);
+}
+
+.AuthButton:active {
+    background-color: var(--toggle-active-color);
+}
+
+.AuthButton:disabled {
+    background-color: #c0c0c0; 
+    cursor: not-allowed;
+}
+
+.ImageGenerator {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.chat-history {
+    flex: 1;
+    padding: 10px;
+    margin-bottom: 50px;
+}
+
+.chat-entry {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: var(--accent-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.chat-prompt {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.chat-images {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.chat-image-item {
+    position: relative;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.chat-image {
+    width: 150px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.download-button {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--button-color);
+    color: var(--font-color);
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s;
+}
+
+.download-button:hover {
+    background-color: var(--button-hover-color);
+}
+
+.chat-input {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    background-color: var(--font-color);
+}
+
+.input-field {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.generate-button {
+    background-color: var(--button-color);
+    color: var(--font-color);
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.generate-button:hover {
+    background-color: var(--button-hover-color);
+}
+
+.error-message {
+    color: #dc3545;
+    margin-top: 10px;
+}
+
+.image-history {
+    margin-top: 20px;
+}
+
+.image-history h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.history-entry {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: var(--accent-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.history-prompt {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.history-images {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.history-image-item {
+    position: relative;
+    margin: 10px;
+}
+
+.history-image {
+    width: 300px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.history-download-button {
+    display: block;
+    margin-top: 5px;
+    padding: 5px 10px;
+    background-color: var(--button-color);
+    color: var(--font-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.history-download-button:hover {
+    background-color: var(--button-hover-color);
+}
+
+.NoHistory {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    color: #333;
+}
+
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-container {
+    margin: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: var(--font-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    max-width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-container h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.auth-button {
+    background-color: var(--button-color);
+    color: var(--font-color);
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.auth-button:hover {
+    background-color: var(--button-hover-color);
+}
+
+.auth-message {
+    color: #dc3545;
+    margin-top: 10px;
+}
+
+.profile-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-container {
+    margin: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: var(--font-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    max-width: 100%;
+}
+
+.profile-container h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+    margin-top: 0px;
+}
+
+.profile-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.profile-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.update-button {
+    background-color: var(--button-color);
+    color: var(--font-color);
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.update-button:hover {
+    background-color: var(--button-hover-color);
+}
+
+.success-message {
+    color: var(--button-color);
+    margin-top: 10px;
+}
+
+.PasswordReset {
+    font-weight: bold;
+}
+
+.PasswordReset button {
+    background-color: var(--button-color);
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    color: var(--font-color);
+}
+
+.PasswordReset button:hover {
+    background-color: var(--button-hover-color);
+}
+
+.PasswordReset input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 15px;
+}

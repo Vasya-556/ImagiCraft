@@ -75,32 +75,35 @@ function History() {
   }
 
   if (error) {
-    return <p style={{ color: 'red' }}>{error}</p>;
+      return <p style={{ color: 'red' }}>{error}</p>;
   }
 
   return (
-    <div>
-      <h1>Image History</h1>
-      <div style={{ marginTop: '20px' }}>
-        {Object.keys(history).length === 0 ? (
-          <p>No history found.</p>
-        ) : (
-          Object.entries(history).map(([prompt, images]) => (
-            <div key={prompt} style={{ marginBottom: '20px' }}>
-              <h2>Prompt: {prompt}</h2>
-              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {images.map((item, index) => (
-                  <div key={item.id} style={{ margin: '10px' }}>
-                    <img src={item.image_url} alt="" width="300" />
-                    <button onClick={() => handleDownload(item.image_url)}>Download</button>
-                  </div>
-                ))}
-              </div>
+  <div className="image-history">
+    <div style={{ marginTop: '20px' }}>
+      {Object.keys(history).length === 0 ? (
+        <p className='NoHistory'>No history found.</p>
+          ) : (
+        Object.entries(history).map(([prompt, images]) => (
+          <div key={prompt} className="history-entry">
+            <h2 className="history-prompt">Prompt: {prompt}</h2>
+            <div className="history-images">
+              {images.map((item) => (
+                <div key={item.id} className="history-image-item">
+                  <img src={item.image_url} alt="" className="history-image" />
+                  <button 
+                    onClick={() => handleDownload(item.image_url)} 
+                    className="history-download-button">
+                    Download
+                  </button>
+                </div>
+              ))}
             </div>
-          ))
-        )}
-      </div>
+          </div>
+        ))
+      )}
     </div>
+  </div>
   );
 }
 

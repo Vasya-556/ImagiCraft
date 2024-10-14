@@ -73,51 +73,56 @@ function Profile() {
   };
 
   return (
-    <div>
-      {isLoggedIn ? (
-        <div>
-          <h2>User Profile</h2>
-          <div>
-            <label>Username:</label>
-            <input
-              type="text"
-              value={updatedUserData.username}
-              onChange={(e) => setUpdatedUserData({ ...updatedUserData, username: e.target.value })}
-            />
-          </div>
-          <div>
-            <label>Email:</label>
-            <input
-              type="email"
-              value={updatedUserData.email}
-              onChange={(e) => setUpdatedUserData({ ...updatedUserData, email: e.target.value })}
-            />
-          </div>
-          <div>
-            <label>First Name:</label>
-            <input
-              type="text"
-              value={updatedUserData.first_name}
-              onChange={(e) => setUpdatedUserData({ ...updatedUserData, first_name: e.target.value })}
-            />
-          </div>
-          <div>
-            <label>Last Name:</label>
-            <input
-              type="text"
-              value={updatedUserData.last_name}
-              onChange={(e) => setUpdatedUserData({ ...updatedUserData, last_name: e.target.value })}
-            />
-          </div>
-          <button onClick={handleUpdate}>Update Profile</button>
-          {successMessage && <p>{successMessage}</p>}
-
-          <PasswordReset email={userData.email} />
-        </div>
-      ) : (
-        <p>Not logged in</p>
-      )}
+    <div className="profile-page">
+    <div className="profile-container">
+        {isLoggedIn ? (
+            <div>
+                <h2>User Profile</h2>
+                <div>
+                    <label>Username:</label>
+                    <input
+                        type="text"
+                        value={updatedUserData.username}
+                        onChange={(e) => setUpdatedUserData({ ...updatedUserData, username: e.target.value })}
+                        className="profile-input"
+                    />
+                </div>
+                <div>
+                    <label>Email:</label>
+                    <input
+                        type="email"
+                        value={updatedUserData.email}
+                        onChange={(e) => setUpdatedUserData({ ...updatedUserData, email: e.target.value })}
+                        className="profile-input"
+                    />
+                </div>
+                <div>
+                    <label>First Name:</label>
+                    <input
+                        type="text"
+                        value={updatedUserData.first_name}
+                        onChange={(e) => setUpdatedUserData({ ...updatedUserData, first_name: e.target.value })}
+                        className="profile-input"
+                    />
+                </div>
+                <div>
+                    <label>Last Name:</label>
+                    <input
+                        type="text"
+                        value={updatedUserData.last_name}
+                        onChange={(e) => setUpdatedUserData({ ...updatedUserData, last_name: e.target.value })}
+                        className="profile-input"
+                    />
+                </div>
+                <button onClick={handleUpdate} className="update-button">Update Profile</button>
+                {successMessage && <p className="success-message">{successMessage}</p>}
+                <PasswordReset email={userData.email} />
+            </div>
+        ) : (
+            <p>Not logged in</p>
+        )}
     </div>
+</div>
   );
 }
 

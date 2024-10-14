@@ -72,7 +72,7 @@ def generate_images(request):
                     if is_logged_in and user_id:
                         try:
                             user = User.objects.get(id=user_id)
-                            History.objects.create(user=user, image=image_filename, prompt=prompt_with_variation)
+                            History.objects.create(user=user, image=image_filename, prompt=prompt)
                         except User.DoesNotExist:
                             return JsonResponse({
                                 "status": "error",
