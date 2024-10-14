@@ -35,8 +35,8 @@ Follow these steps to get started
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/Vasya-556/Converter.git
-cd Converter
+git clone https://github.com/Vasya-556/ImagiCraft.git
+cd ImagiCraft
 ```
 
 ### 2. Create virtual enviroment for python
