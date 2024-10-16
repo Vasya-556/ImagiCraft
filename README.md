@@ -12,6 +12,8 @@
     - [2. Create virtual enviroment for python](#2-create-virtual-enviroment-for-python)
     - [3. Run backend server](#3-run-backend-server)
     - [4. Run frontend server](#4-run-frontend-server)
+    - [5. Run test for backend](#5-run-test-for-backend)
+    - [6. Run test for frontend](#6-run-test-for-frontend)
   - [Contributing](#contributing)
   - [License](#license)
 
@@ -61,6 +63,23 @@ python manage.py runserver
 ```bash
 cd frontend
 npm start
+```
+
+### 5. Run test for backend
+```bash
+# On Windows
+env\Scripts\activate
+# On macOS/Linux
+source env/bin/activate
+
+cd backend
+python manage.py test image_generator
+```
+
+### 6. Run test for frontend
+```bash
+cd frontend
+npm test
 ```
 
 ## Contributing
