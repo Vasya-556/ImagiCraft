@@ -3,6 +3,7 @@ import LogoutButton from './LogoutButton';
 import LightDarkModeToggle from './LightDarkModeToggle';
 import SideBar from './SideBar';
 import logo from '../assets/logo.svg';
+import { Link } from 'react-router-dom';
 
 function Header() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,11 +22,11 @@ function Header() {
           {isLoggedIn && <SideBar />}
         </div>
         <div className='middle'>
-          <a href='/'><h1> 
+          <Link to='/'><h1> 
             ImagiCraft 
             </h1>
             <img src={logo} alt=''/>
-          </a>
+          </Link>
         </div>
         <div className='right'>
           {isLoggedIn ? 
@@ -33,8 +34,8 @@ function Header() {
               <LogoutButton/>
           </> : 
           <> 
-              <a className='AuthButton' href="/SignIn">Sign in</a>
-              <a className='AuthButton' href="/SignUp">Sign up</a>
+              <Link className='AuthButton' to="/SignIn">Sign in</Link>
+              <Link className='AuthButton' to="/SignUp">Sign up</Link>
           </>}
           <LightDarkModeToggle/>
         </div>
