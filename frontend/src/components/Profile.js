@@ -32,7 +32,7 @@ function Profile() {
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/get_user_data/', {
+      const response = await fetch('https://imagicraft.pythonanywhere.com/api/get_user_data/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ function Profile() {
 
   const handleUpdate = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/update_user_data/', {
+      const response = await fetch('https://imagicraft.pythonanywhere.com/api/update_user_data/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

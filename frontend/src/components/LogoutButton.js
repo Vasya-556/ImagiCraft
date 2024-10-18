@@ -3,7 +3,7 @@ import React from 'react';
 function LogoutButton() {
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/signout/', {
+      const response = await fetch('https://imagicraft.pythonanywhere.com/api/signout/', {
         method: 'POST', 
         credentials: 'include', 
       });
