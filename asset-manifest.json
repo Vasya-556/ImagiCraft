@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/ImagiCraft/static/css/main.ce3c8a06.css",
-    "main.js": "/ImagiCraft/static/js/main.4fc5432f.js",
+    "main.css": "/ImagiCraft/static/css/main.db908aad.css",
+    "main.js": "/ImagiCraft/static/js/main.83ee64a4.js",
     "static/js/453.8ab44547.chunk.js": "/ImagiCraft/static/js/453.8ab44547.chunk.js",
     "static/media/logo.svg": "/ImagiCraft/static/media/logo.4636843affa8e457212f5118637f43d1.svg",
     "index.html": "/ImagiCraft/index.html",
-    "main.ce3c8a06.css.map": "/ImagiCraft/static/css/main.ce3c8a06.css.map",
-    "main.4fc5432f.js.map": "/ImagiCraft/static/js/main.4fc5432f.js.map",
+    "main.db908aad.css.map": "/ImagiCraft/static/css/main.db908aad.css.map",
+    "main.83ee64a4.js.map": "/ImagiCraft/static/js/main.83ee64a4.js.map",
     "453.8ab44547.chunk.js.map": "/ImagiCraft/static/js/453.8ab44547.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ce3c8a06.css",
-    "static/js/main.4fc5432f.js"
+    "static/css/main.db908aad.css",
+    "static/js/main.83ee64a4.js"
   ]
 }
