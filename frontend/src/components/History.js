@@ -88,7 +88,10 @@ function History() {
           <div key={prompt} className="history-entry">
             <h2 className="history-prompt">Prompt: {prompt}</h2>
             <div className="history-images">
-              {images.map((item) => (
+              {images.map((item) => {
+                if (!item.image_url || item.image_url.trim() === 'http://127.0.0.1:8000/media/generated_images/') return null;
+                
+                return (
                 <div key={item.id} className="history-image-item">
                   <img src={item.image_url} alt="" className="history-image" />
                   <button 
@@ -97,7 +100,8 @@ function History() {
                     Download
                   </button>
                 </div>
-              ))}
+                )
+              })}
             </div>
           </div>
         ))

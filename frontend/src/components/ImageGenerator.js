@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Square } from 'ldrs/react'
+import 'ldrs/react/Square.css'
 
 function ImageGenerator() {
   const [prompt, setPrompt] = useState('');
@@ -7,6 +9,7 @@ function ImageGenerator() {
   const [error, setError] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [selectedModel, setSelectedModel] = useState('model1');
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
@@ -34,6 +37,7 @@ function ImageGenerator() {
           prompt: prompt,
           isLogged: isLoggedIn,
           user_id: userId,
+          model: selectedModel,
         }),
       });
 
@@ -100,6 +104,16 @@ function ImageGenerator() {
           </div>
         ))}
       </div>
+      <div className='Loading'>
+      {loading ? <Square
+        size="35"
+        stroke="5"
+        strokeLength="0.25"
+        bgOpacity="0.1"
+        speed="1.2"
+        color="purple" 
+      /> : <></>}
+      </div>
       <div className="chat-input">
         <input
           type="text"
@@ -108,6 +122,17 @@ function ImageGenerator() {
           placeholder="Enter image prompt"
           className="input-field"
         />
+        <select 
+          value={selectedModel} 
+          onChange={(e) => setSelectedModel(e.target.value)}
+          className="select-model"> 
+          <option value="model1">Default</option>
+          <option value="model2">Medieval</option>
+          <option value="model3">Cyberpunk</option>
+          <option value="model4">White and black</option>
+          {/* <option value="model2">Surreal</option> */}
+          {/* <option value="model3">Photo</option> */}
+        </select>
         <button onClick={handleGenerateImages} disabled={loading || !prompt} className="generate-button">
           {loading ? 'Generating...' : 'Generate Images'}
         </button>

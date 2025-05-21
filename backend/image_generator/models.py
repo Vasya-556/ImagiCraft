@@ -3,7 +3,7 @@ from django.db import models
 
 class History(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  
-    image = models.ImageField(upload_to='generated_images/')  
+    image = models.ImageField(upload_to='generated_images/', null=True, blank=True)  
     prompt = models.CharField(max_length=255)  
     created_at = models.DateTimeField(auto_now_add=True)  
 

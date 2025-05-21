@@ -17,7 +17,7 @@
     --bg-color: #3B3B3B;  
     --accent-color: #fda901;  
     --button-color: #B22222;  
-    --button-hover-color: #CD853F;
+    --button-hover-color: #901c1c;
     --toggle-color: #8B4513;  
     --toggle-active-color: #D2691E;
 }
@@ -140,8 +140,23 @@ input:checked + .slider:before {
 
 @media (max-width: 600px) {
     .switch {
-        width: 75px; 
-        height: 33px; 
+        width: 50px; 
+        height: 28px;
+    }
+
+    .slider {
+        border-radius: 14px; 
+    }
+
+    .slider:before {
+        height: 20px;  
+        width: 20px;
+        left: 3px;
+        bottom: 4px;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(10px); 
     }
 }
 
@@ -306,6 +321,32 @@ input:checked + .slider:before {
     background-color: var(--button-hover-color);
 }
 
+.copy-button{
+    background-color: var(--button-color);
+    color: var(--font-color);
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s;
+    
+    /* Remove absolute positioning */
+    position: static; /* or just remove this line */
+    bottom: auto;
+    left: auto;
+    transform: none;
+
+    /* Optional for better spacing and alignment */
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.copy-button:hover {
+    background-color: var(--button-hover-color);
+}
+
 .chat-input {
     display: flex;
     position: fixed;
@@ -340,9 +381,45 @@ input:checked + .slider:before {
     background-color: var(--button-hover-color);
 }
 
+.select-model {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: var(--button-color);
+    color: var(--font-color);
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+    margin-right: 10px;
+}
+
+.select-model:hover {
+    background-color: var(--button-hover-color);
+    border-color: var(--accent-color);
+}
+
+.select-model option {
+    background-color: var(--button-color);
+    color: var(--font-color);
+}
+
 .error-message {
     color: #dc3545;
     margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+    .chat-input {
+        flex-direction: column; 
+        padding: 5px; 
+    }
+
+    .input-field,
+    .select-model,
+    .generate-button {
+        margin: 5px 0; 
+        width: 100%; 
+    }
 }
 
 .image-history {
@@ -549,4 +626,78 @@ input:checked + .slider:before {
     border-radius: 4px;
     font-size: 14px;
     margin-bottom: 15px;
+}
+
+.Loading {
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+.describe-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: var(--toggle-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    color: var(--font-color);
+}
+    
+.describe-container h2 {
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+    
+.describe-image-input {
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 8px;
+    background-color: var(--bg-color);
+    width: 100%;
+    box-sizing: border-box;
+    color: var(--primary-color);
+}
+    
+.describe-button {
+    padding: 10px 20px;
+    background-color: var(--button-color);
+    border: none;
+    border-radius: 8px;
+    color: var(--font-color);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+    
+.describe-button:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+}
+    
+.describe-button:hover:not(:disabled) {
+    background-color: var(--button-hover-color);
+}
+    
+.response-box {
+    margin-top: 25px;
+    padding: 15px;
+    background-color: var(--accent-color);
+    border-left: 4px solid var(--primary-color);
+    border-radius: 8px;
+    text-align: left;
+    color: var(--font-color);
+}
+    
+.response-box h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+    
+.response-box p {
+    margin: 0;
+    color: var(--font-color);
 }

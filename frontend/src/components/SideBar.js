@@ -11,7 +11,9 @@ function SideBar() {
     <>
       <div className={`Sidebar ${isOpen ? 'open' : 'closed'}`}>
         <ul>
-          <li><a href='/'>Chat</a></li>
+          <li><a href='/'>Image Generator</a></li>
+          <li><a href='/prompt'>Prompt Generator</a></li>
+          <li><a href='/describe'>Analyze image with ai</a></li>
           <li><a href='/history'>History</a></li>
           <li><a href='/profile'>Profile</a></li>
         </ul>
