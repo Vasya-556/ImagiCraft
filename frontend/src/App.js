@@ -5,7 +5,7 @@ import Profile from "./components/Profile";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import PromptGenerator from "./components/PromptGenerator";
-import Describe from "./components/Descirbe";
+import Describe from "./components/Describe";
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
