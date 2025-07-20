@@ -28,7 +28,7 @@ function PromptGenerator() {
     setCopiedIndex(null);
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/generate_prompts/', {
+      const response = await fetch('https://imagicraft.pythonanywhere.com/api/generate_prompts/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

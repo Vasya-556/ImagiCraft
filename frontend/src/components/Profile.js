@@ -25,35 +25,34 @@ function Profile() {
   }, []);
 
   useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/get_user_data/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ user_id: userId }),
+        });
+        const data = await response.json();
+        if (data.status === 'success') {
+          setUserData(data.data);
+          setUpdatedUserData(data.data); 
+        } else {
+          console.error('Failed to fetch user data');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
     if (userId) {
       fetchUserData();
     }
   }, [userId]);
 
-  const fetchUserData = async () => {
-    try {
-      const response = await fetch('http://127.0.0.1:8000/api/get_user_data/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ user_id: userId }),
-      });
-      const data = await response.json();
-      if (data.status === 'success') {
-        setUserData(data.data);
-        setUpdatedUserData(data.data); 
-      } else {
-        console.error('Failed to fetch user data');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
   const handleUpdate = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/update_user_data/', {
+      const response = await fetch('https://imagicraft.pythonanywhere.com/api/update_user_data/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

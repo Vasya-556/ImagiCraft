@@ -11,7 +11,6 @@ import './App.css';
 
 function App() {
   return (
-    <Router>
       <div>
         <Header/>
         <Routes>
@@ -24,7 +23,6 @@ function App() {
           <Route path="/" element={<ImageGenerator />} />
         </Routes>
       </div>
-    </Router>
   );
 }
 

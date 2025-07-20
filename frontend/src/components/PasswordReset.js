@@ -8,7 +8,7 @@ function PasswordReset({ email }) {
 
   const handleRequestCode = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/request_password_reset/', {
+      const response = await fetch('https://imagicraft.pythonanywhere.com/api/request_password_reset/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -26,7 +26,7 @@ function Describe() {
       const formData = new FormData();
       formData.append('image', selectedFile);
 
-      const res = await fetch('http://127.0.0.1:8000/api/analyze_image/', {
+      const res = await fetch('https://imagicraft.pythonanywhere.com/api/analyze_image/', {
         method: 'POST',
         body: formData,
       });
